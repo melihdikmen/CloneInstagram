@@ -169,16 +169,15 @@ class LoginStore{
 
                                     try {
                                       AsyncStorage.setItem('USER', JSON.stringify(responseJson));
+                
+                                       this.setFullName(responseJson.fullname) 
                                      
-                                      this.setFullName(responseJson.fullname)
-                                     
-                                      
 
                                    } 
                                    catch (error) {
                                      
                                    }
-                                   
+                                    
                                
                                    success();
                     
@@ -233,7 +232,7 @@ class LoginStore{
             
             try {
                  AsyncStorage.setItem('USER', JSON.stringify(responseJson));
-                 this.setFullName(responseJson.fullname)           
+                 this.setFullName(responseJson.fullname) 
               } 
               catch (error) {
                 
@@ -255,6 +254,7 @@ class LoginStore{
           console.error(error);
         });
 
+        
 }
 
 }

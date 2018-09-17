@@ -11,6 +11,8 @@ import Notification from '../pages/Notification';
 import Profile from '../pages/Profile';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
+import CreatePost from '../pages/Post/CreatePost';
+import Create2 from '../pages/Post/Create2';
 import Camera from '../pages/Camera';
 import Title from '../components/Home/Header/Title'
 import DirectMessage from '../pages/DirectMessage';
@@ -124,6 +126,11 @@ const Membership=createStackNavigator(
       
     }
   })
+
+
+
+  
+  
   
   
 
@@ -145,11 +152,16 @@ const Membership=createStackNavigator(
  
  
     NewPost :{
-     screen:Home,
-     navigationOptions:{
-       tabBarIcon:<Icon name={"plus-square-o"} size={25} color={"#000"} />,
-       tabBarOnPress:()=>{}
-     }
+     screen:()=>null,
+     navigationOptions:({navigation})=>({
+      tabBarIcon:<Icon name={"plus-square-o"} size={25} color={"#000"} />,
+      tabBarOnPress:()=>{
+        navigation.navigate("CreatePost");
+      }
+     })
+      
+       
+    
    },
  
     Notification:{
@@ -194,12 +206,18 @@ const MainTabBar= createTabNavigator({
   Camera:{
     screen:Camera
   },
+  
   Home:HomeTabBar,
 
   DirectMessage:{
     screen:DirectMessage
   },  
+
+ 
 },
+
+
+
 
 {
   initialRouteName:'Home',
@@ -218,7 +236,55 @@ const MainTabBar= createTabNavigator({
 
 
 
+const PostPages =createStackNavigator(
+  {
+    CreatePost:{
+      screen:CreatePost
+    },
+
+   Create2:{
+     screen:Create2
+   },
+
+  },
+
+
+
+  {
+
+    initialRouteName:"CreatePost",
    
+
+  }
+
+)
+
+
+
+
+
+  const MainStack =createStackNavigator(
+    {
+      PostPages:{screen:PostPages,navigationOptions:{
+        header:null
+      }  },
+        
+    
+
+      MainTabBar:{screen:MainTabBar,navigationOptions:{header:null},
+
+    }
+  },
+
+  
+    {
+
+      initialRouteName:"MainTabBar",
+      mode:"modal"
+
+    }
+
+  )
 
   
 
@@ -230,7 +296,7 @@ const MainTabBar= createTabNavigator({
 
 export default createSwitchNavigator(
   {
-    MainTabBar:MainTabBar,
+    MainStack:MainStack,
     AuthLoading: AuthLoading,
     Membership: Membership,
    
