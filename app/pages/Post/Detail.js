@@ -7,52 +7,62 @@
  */
 
 import React, {Component} from 'react';
-import {Text, View,ActivityIndicator,FlatList,Image,TouchableOpacity,Animated} from 'react-native';
+import {ScrollView,TouchableOpacity,FlatList,Image,TextInput, View,Text,AsyncStorage} from 'react-native';
 import styles from '../../theme/styles';
 import Icon from 'react-native-vector-icons/FontAwesome';
-
+import { NavigationActions } from 'react-navigation';
+import{PostStore } from '../../stores/';
 
 import {observer} from 'mobx-react';
-import { PostStore } from '../../stores';
-
-
-
+import CommentStore from '../../stores/CommentStore';
 
 @observer
- class Home extends Component {
+ class PostDetail extends Component {
  
-
- constructor(props)
-{
-  super(props);
+static  navigationOptions=({navigation})=>({
+ 
+ headerTitle:"Post Details",
+ headerTitleTintColor:"#000",
+ 
+ 
   
-}
+ });
 
 
+  constructor(props){
 
-componentDidMount()
-{
-  PostStore.fetchAll();
-}
+    super(props)
+   this.state={
+     refresh:true,
+   }
+   
+  }
+
+  update()
+  {
+    this.forceUpdate()
+  }
+
+
+  componentDidMount()
+  {
+    CommentStore.getComments(this.props.navigation.state.params.id)
+  }
     
   render() {
+
     
-
-
-    return (
+      return (
       <View style={styles.container}>
-        <FlatList
+        <FlatList 
+          
+        keyExtractor={(item,index)=>item.id}
           ListHeaderComponent={
-            ()=>{ return PostStore.getAllPost   ?  (
 
-                   PostStore.getAllPost.length<1 && <ActivityIndicator/> ): 
-                 (
-                    <View><Text>Post yok</Text></View>
-                 );
-            }
-          }
+            <FlatList
+       
           keyExtractor={(item,index)=>item.id}
-          data={PostStore.getAllPost}
+          data={PostStore.getPost(this.props.navigation.state.params.id)}
           renderItem={({item}) =>
       
           <View style={{borderBottomWidth: 1,borderBottomColor: '#ddd',}}>
@@ -112,10 +122,35 @@ componentDidMount()
         
         }
                 />
-      </View>
+
+
+          }
+
+
+          ListFooterComponent={
+
+            <View style={{flexDirection: 'row',justifyContent:'center',marginLeft:5,marginRight: 5,marginTop:5,borderTopWidth:1,borderTopColor:'#ddd'}}>
+              <TextInput value={CommentStore.getCommenText} placeholder="enter comment"onChangeText={(text)=>{
+                CommentStore.setCommentText(text)
+              }} underlineColorAndroid="transparent" style={{height:40,flex: 1,}}/>
+             
+             <TouchableOpacity  onPress={()=>{
+               CommentStore.create(this.props.navigation.state.params.id)
+               CommentStore.setCommentText("");
+                          }
+
+             } style={{marginLeft:10}}><Icon name={"send"}   style={{ marginTop:10}} size={20} /></TouchableOpacity> 
+            </View>
+          }
+
+          data={CommentStore.Comments}
+          renderItem={({item}) => <Text>{item.comment}</Text>}
+          extraData={this.state.refresh}
+        />
+       </View>
     );
   }
 }
 
 
-export default Home;
+export default PostDetail;

@@ -12,6 +12,8 @@ import Profile from '../pages/Profile';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 import CreatePost from '../pages/Post/CreatePost';
+
+import PostDetail from '../pages/Post/Detail';
 import Create2 from '../pages/Post/Create2';
 import Camera from '../pages/Camera';
 import Title from '../components/Home/Header/Title'
@@ -273,7 +275,11 @@ const PostPages =createStackNavigator(
 
       MainTabBar:{screen:MainTabBar,navigationOptions:{header:null},
 
-    }
+    },
+
+    PostDetail:{
+      screen:PostDetail
+    },
   },
 
   

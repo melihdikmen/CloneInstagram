@@ -7,9 +7,11 @@
  */
 
 import React, {Component} from 'react';
-import {ScrollView,TouchableOpacity,Image,ActivityIndicator, View,Text,TextInput} from 'react-native';
+import {TouchableOpacity,Image,ActivityIndicator, View,Text,TextInput} from 'react-native';
 import styles from '../../theme/styles';
-import Icon from 'react-native-vector-icons/FontAwesome';
+
+import {NavigationActions,StackActions } from "react-navigation";
+
 
 import{PostStore } from '../../stores/';
 
@@ -18,16 +20,28 @@ import {observer} from 'mobx-react';
 @observer
  class Create2 extends Component {
  
-static navigationOptions={
-  headerTitle:"New Post",
-  headerRight:(
-    <TouchableOpacity style={{marginRight: 5,}}>
-      <Text>
-          Share
-      </Text>
-    </TouchableOpacity>
-  )
-}
+
+  
+static  navigationOptions=({navigation})=>({
+ 
+ headerTitle:"Post Creating",
+ headerTitleTintColor:"#000",
+ 
+ headerRight :(<TouchableOpacity onPress={()=>{
+  
+  PostStore.createPost(()=>{
+    navigation.navigate("Home")
+    navigation.dispatch(StackActions.popToTop())
+
+  })
+
+
+
+
+   }}  style={{marginRight:8}}>
+   <Text style={{fontWeight: 'bold',color:"#000",fontSize:20}}>Share</Text>
+ </TouchableOpacity>)
+});
 
 
   constructor(props){
@@ -44,11 +58,16 @@ static navigationOptions={
   render() {
     return (
       <View style={styles.container}>
+      {PostStore.loading && <ActivityIndicator/>}
       <View style={{flexDirection: 'row', flex:1, marginTop:10,}}>
-         <Image source={{uri:PostStore.getImages[0]}} style={{width:80,height:80}} />
-        <TextInput multiline underlineColorAndroid='transparent'  style={{
+      <Image source={{uri:PostStore.getImages[0]}} style={{width:80,height:80}} />
+        <TextInput onChangeText={(text)=> {
+          PostStore.setContentText(text)
+        }}
+         multiline underlineColorAndroid='transparent'  style={{
             padding:5,height:80,flex:1,borderBottomWidth: 1,borderColor:"#ddd",marginRight:5,marginLeft:5}}></TextInput>
         </View>
+                
       </View>
     );
   }

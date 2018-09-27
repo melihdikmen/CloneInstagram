@@ -24,7 +24,11 @@ import {observer} from 'mobx-react';
   render() {
     return (
       <View style={styles.container}>
-        <Text> Keşfet</Text>
+        <TouchableOpacity onPress={()=>
+        {
+          AsyncStorage.removeItem('USER')
+          this.props.navigation.navigate("Membership")
+        }}><Text>Keşfet</Text></TouchableOpacity>
       </View>
     );
   }

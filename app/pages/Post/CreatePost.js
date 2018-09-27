@@ -30,8 +30,7 @@ static  navigationOptions=({navigation})=>({
    <Icon style={{marginLeft:10}} name={"times"} size={25} color={"#000"}/>
  </TouchableOpacity>),
  headerRight :(<TouchableOpacity onPress={()=>{
-   navigation.navigate("Create2")
- }}  style={{marginRight:8}}>
+  navigation.navigate("Create2") }}  style={{marginRight:8}}>
    <Text style={{fontWeight: 'bold',color:"#000",fontSize:20}}>Contuine</Text>
  </TouchableOpacity>)
   
