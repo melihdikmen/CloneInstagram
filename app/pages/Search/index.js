@@ -7,11 +7,10 @@
  */
 
 import React, {Component} from 'react';
-import {Text, View,TouchableOpacity,AsyncStorage} from 'react-native';
+import {Text, View,TouchableOpacity,FlatList} from 'react-native';
 import styles from '../../theme/styles';
 import Icon from 'react-native-vector-icons/FontAwesome';
-
-
+import {SearchUserStore} from '../../stores/index';
 import {observer} from 'mobx-react';
 
 @observer
@@ -24,11 +23,11 @@ import {observer} from 'mobx-react';
   render() {
     return (
       <View style={styles.container}>
-        <TouchableOpacity onPress={()=>
-        {
-          AsyncStorage.removeItem('USER')
-          this.props.navigation.navigate("Membership")
-        }}><Text>Keşfet</Text></TouchableOpacity>
+        <FlatList
+          keyExtractor={(item,index)=>item.id}
+            data={SearchUserStore.getUsers}
+            renderItem={({item}) => <Text>{item.username}</Text>}
+          />
       </View>
     );
   }

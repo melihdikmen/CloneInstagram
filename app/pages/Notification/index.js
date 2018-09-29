@@ -21,7 +21,9 @@ import {observer} from 'mobx-react';
   render() {
     return (
       <View style={styles.container}>
-        <Text> Notification</Text>
+      <TouchableOpacity onPress={()=>{
+        AsyncStorage.removeItem("USER")
+      }}><Text>adada</Text></TouchableOpacity>
       </View>
     );
   }

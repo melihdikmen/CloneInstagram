@@ -10,10 +10,11 @@ import React, {Component} from 'react';
 import {Text,TouchableOpacity,View,TextInput,LayoutAnimation,UIManager} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
+import {SearchUserStore} from '../../../stores/index'
 
+import {observer} from 'mobx-react';
 
-
-
+@observer 
  export default class Title extends Component {
 
     constructor(props)
@@ -45,7 +46,11 @@ import Icon from 'react-native-vector-icons/FontAwesome';
           alignItems: 'center',
       }}>
         <Icon  style={[{marginLeft:10,marginRight: 10,}]}name={"search"}  size={15} color={"#999"}/>
-        <TextInput  autoFocus={true} underlineColorAndroid='transparent' style={{height:40,flex:1,justifyContent:"center",marginTop:10}}  />
+        <TextInput onChangeText={ (text)=>{ 
+          SearchUserStore.setUsername(text)
+        }
+                
+      } autoFocus={true} underlineColorAndroid='transparent' style={{height:40,flex:1,justifyContent:"center",marginTop:10}}  />
       </View>
       <Text style={{marginRight: 8,}}>Cancel</Text>
       </View>
