@@ -23,7 +23,7 @@ class CommentStore{
 
 @action create (postId) 
 {
-  fetch('http://192.168.1.105/instagram/setComments', {
+  fetch('http://192.168.1.104/instagram/setComments', {
     method: 'POST',
     headers: {
       'Accept': 'application/json',
@@ -79,7 +79,7 @@ class CommentStore{
 @action getComments(id)
 {   
     
-    fetch('http://192.168.1.105/instagram/getComments', {
+    fetch('http://192.168.1.104/instagram/getComments', {
     method: 'POST',
     headers: {
       'Accept': 'application/json',

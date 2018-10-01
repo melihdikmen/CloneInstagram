@@ -81,7 +81,7 @@ class RegisterStore{
 @action  registerUser()
 {
       
-fetch('http://192.168.1.105/instagram/', {
+fetch('http://192.168.1.104/instagram/', {
     method: 'POST',
     headers: {
       'Accept': 'application/json',

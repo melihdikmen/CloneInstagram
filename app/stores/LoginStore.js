@@ -63,7 +63,7 @@ class LoginStore{
 
 @action createFbLogin({params},success,fail)
 { 
-  fetch('http://192.168.1.105/instagram/register', {
+  fetch('http://192.168.1.104/instagram/register', {
     method: 'POST',
     headers: {
       'Accept': 'application/json',
@@ -143,7 +143,7 @@ class LoginStore{
                 },
               (error,result)=>{
               
-                    fetch('http://192.168.1.105/instagram/fblogin', {
+                    fetch('http://192.168.1.104/instagram/fblogin', {
                         method: 'POST',
                         headers: {
                         'Accept': 'application/json',
@@ -208,7 +208,7 @@ class LoginStore{
 
 @action   login(success,fail)
 {
-    fetch('http://192.168.1.105/instagram/login', {
+    fetch('http://192.168.1.104/instagram/login', {
     method: 'POST',
     headers: {
       'Accept': 'application/json',

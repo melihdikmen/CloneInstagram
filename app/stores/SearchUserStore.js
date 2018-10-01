@@ -24,7 +24,7 @@ class SearchUserStore{
 
 @action searchFetch()
 {
-    fetch('http://192.168.1.105/instagram/searchUsers', {
+    fetch('http://192.168.1.104/instagram/searchUsers', {
         method: 'POST',
         headers: {
           'Accept': 'application/json',

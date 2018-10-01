@@ -206,7 +206,8 @@ const Membership=createStackNavigator(
 const MainTabBar= createTabNavigator({
 
   Camera:{
-    screen:Camera
+    screen:Camera,
+    
   },
   
   Home:HomeTabBar,

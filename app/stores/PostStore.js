@@ -59,7 +59,7 @@ username;
    
         
 
-        fetch('http://192.168.1.105/instagram/upload', {
+        fetch('http://192.168.1.104/instagram/upload', {
             method: 'POST',
             headers: {
               'Accept': 'application/json',
@@ -148,7 +148,7 @@ username;
 @action  fetchAll()
 {
 
-    return fetch('http://192.168.1.105/instagram/getAll')
+    return fetch('http://192.168.1.104/instagram/getAll')
     .then((response) => response.json())
     .then((responseJson) => {
       this.data=responseJson;
