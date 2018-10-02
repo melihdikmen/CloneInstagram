@@ -26,7 +26,7 @@ import Router from './configs/router';
 
   componentWillUnmount() {
     OneSignal.removeEventListener('received', this.onReceived);
-    OneSignal.removeEventListener('opened', this.onOpened);
+    OneSignal.removeEventListener('opened', this.onOpened); 
     OneSignal.removeEventListener('ids', this.onIds);
   }
 

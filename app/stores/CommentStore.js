@@ -38,7 +38,7 @@ class CommentStore{
    
     })
    
-  }).then((response) => response.text())
+  }).then((response) => response.json())
         .then((responseJson) => {
    
           // If server response message same as Data Matched

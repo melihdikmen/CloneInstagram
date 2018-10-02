@@ -33,12 +33,13 @@ import { PostStore } from '../../stores';
 componentDidMount()
 {
   PostStore.fetchAll();
+
 }
     
   render() {
     
 
-
+    
     return (
       <View style={styles.container}>
         <FlatList
@@ -76,7 +77,7 @@ componentDidMount()
                <Image
                   
                    style={{width: 375, height: 375}}
-                  source={{uri: 'http://192.168.1.105/instagram'+item.path}}
+                  source={{uri: 'http://192.168.1.104/instagram'+item.path}}
                   resizeMode={"cover"}
                   /> 
                

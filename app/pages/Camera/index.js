@@ -7,7 +7,7 @@
  */
 
 import React, {Component} from 'react';
-import {Image, View,TouchableOpacity,StyleSheet} from 'react-native';
+import {Image, View,TouchableOpacity,StyleSheet,Dimensions,Text,TextInput} from 'react-native';
 import styles from '../../theme/styles';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { RNCamera } from 'react-native-camera';
@@ -15,9 +15,9 @@ import { RNCamera } from 'react-native-camera';
 import {observer} from 'mobx-react';
 import { NavigationEvents } from 'react-navigation';
 
+import {PostStore} from '../../stores/index'
 
-
-
+var {height, width} = Dimensions.get('screen');
 
 @observer
  class Camera extends Component {
@@ -37,6 +37,8 @@ import { NavigationEvents } from 'react-navigation';
       photo:null,
       cam:false
     }
+
+   
   }
 
   takePicture = async function() {
@@ -44,10 +46,14 @@ import { NavigationEvents } from 'react-navigation';
       const options = { quality: 0.5, base64: true }; 
       const data = await this.camera.takePictureAsync(options)
     
+
+
+
       this.setState({
       photo:data.uri
      })
       
+     
      
     }
   };
@@ -66,8 +72,35 @@ import { NavigationEvents } from 'react-navigation';
           {
             return(
 
-              <View style={{flex:1}}>
-                <Image style={{height:375,width:375,transform: [{ rotate: '90deg'}]}}  source={{uri:this.state.photo}} />
+              <View style={{flex:1,flexDirection: 'column',justifyContent:'center'}}>
+               
+               <View style={{height:width,width:width}}><Image style={{flex:1,transform:[{rotate:"90deg"}]}}  source={{uri:this.state.photo}} /></View> 
+
+
+              <View style={{marginTop: 30}}><TextInput onChangeText={(text)=>{PostStore.setContentText(text)}}></TextInput></View>
+
+              <View style={{borderWidth: 1,borderColor: 'blue',flexDirection: 'row',}}>
+
+
+                  <TouchableOpacity style={{flex:1,margin:10}}
+                onPress={()=>{
+                  this.setState({
+                    photo:null
+                  })
+                }}><Text style={{textAlign:'center'}}>Yeniden Dene</Text></TouchableOpacity>
+
+
+                  <TouchableOpacity style={{flex:1,margin:10}}
+                onPress={()=>{PostStore.setImages(this.state.photo)
+                  PostStore.createPost(()=>{alert("başqar")})
+                  
+                }}><Text style={{textAlign:'center'}}>Post</Text></TouchableOpacity>
+
+
+              </View>
+              
+
+
             </View>
 
             ) 
@@ -95,7 +128,7 @@ import { NavigationEvents } from 'react-navigation';
   
   
                <RNCamera
-                ref={ref => {
+                ref={ref => { 
                   this.camera = ref;
                 }}
                 style = {styles1.preview}
@@ -162,15 +195,19 @@ const styles1 = StyleSheet.create({
   container: {
     flex:1,
     flexDirection: 'column',
-    backgroundColor: 'red',
+    backgroundColor: 'black',
+    justifyContent:"center"
+    
     
   },
   preview: {
-    flex: 1,
-   
+    
+    height:width,
+    width:width,
     alignItems: 'center',
-    justifyContent:"flex-end",
-    zIndex:1
+    justifyContent:"center",
+    zIndex:1,
+  
   
   },
   capture: {

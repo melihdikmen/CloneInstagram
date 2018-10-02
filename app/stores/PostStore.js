@@ -34,10 +34,10 @@ username;
         if (value !== null) {
           // We have data!!
             User=JSON.parse(value);
-            alert(User.username)
+         
             this.userID=User.id
             this.username=User.username
-            alert( this.userID)
+          
         }
        } catch (error) {
          // Error retrieving data
@@ -77,7 +77,7 @@ username;
                     
                    console.warn(responseJson)
                    success()
-        
+                    this.fetchAll();
            
                   }
         
